@@ -1,0 +1,89 @@
+@font-face {
+    font-family: weather;
+    src: url(Gaegu-Regular.ttf);
+}
+  
+body * {
+    font-family: weather;
+}
+
+.icon {
+    height: 75px;
+    transform: translateY(-6px);
+}
+
+.navbar-brand {
+    border: 1px solid rgb(163, 82, 102);
+    background-color: rgb(247, 195, 198);
+    color: rgb(163, 82, 102);
+    -webkit-text-stroke: 0.4px rgb(163, 82, 102);
+    border-radius: 20px;
+    font-size: 2.1em;
+    font-weight: bolder;
+}
+
+.search {
+    border-radius: 20px;
+    font-size: 2em;
+}
+
+.btn {
+    background-color: rgb(255, 156, 173);
+    color: white;
+    border: 0.5px solid rgba(117, 117, 117, 0.5);
+}
+
+.btn:hover {
+    background-color: rgb(183, 211, 255);
+    color: rgb(255, 234, 177);
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.container-fluid {
+    background-color: rgb(255, 213, 220);
+    min-height: 100vh;
+    max-height: fit-content;
+    width: 95%;
+    border-radius: 20px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.weatherimg {
+    display: flex;
+    flex-direction: column;
+    border: 5px solid rgb(163, 82, 102);
+    border-radius: 20px;
+}
+
+.col-sm-6 {
+    
+}
+
+.sky {
+    display: flex;
+    justify-content: space-between;
+}
+
+.temp {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 750px) {
+
+    .container-fluid {
+        width: 100%;
+        font-size: 0.5em;
+    }
+
+    .sky {
+        flex-direction: column-reverse;
+        
+    }
+}

@@ -1,0 +1,170 @@
+@font-face {
+    font-family: weather;
+    src: url(Gaegu-Regular.ttf);
+}
+  
+body * {
+    font-family: weather;
+}
+
+.icon {
+    height: 75px;
+    transform: translateY(-6px);
+}
+
+.navbar-brand {
+    border: 1px solid rgb(163, 82, 102);
+    background-color: rgb(247, 195, 198);
+    color: rgb(163, 82, 102);
+    -webkit-text-stroke: 0.4px rgb(163, 82, 102);
+    border-radius: 20px;
+    font-size: 2.1em;
+    font-weight: bolder;
+}
+
+.search {
+    border-radius: 20px;
+    font-size: 2em;
+}
+
+.btn {
+    background-color: rgb(255, 156, 173);
+    color: white;
+    border: 0.5px solid rgba(117, 117, 117, 0.5);
+}
+
+.btn:hover {
+    background-color: rgb(183, 211, 255);
+    color: rgb(255, 234, 177);
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.container-fluid {
+    background-color: rgb(255, 213, 220);
+    min-height: 100vh;
+    max-height: fit-content;
+    width: 95%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.main {
+    flex-direction: column;
+    border: 5px solid rgb(163, 82, 102);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    width: 40%;
+
+}
+
+.weatherimg {
+    display: flex;
+    justify-content: space-around;
+}
+
+.desc-temp, .locate-sky {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.locate-sky {
+    align-items: center;
+    padding: 20px;
+}
+
+.locate {
+    margin: 0;
+}
+
+.sky img {
+    height: 220px;
+}
+
+.desc-temp {
+    margin-left: 20px;
+}
+
+.details {
+    align-self: flex-start;
+    display: flex;
+    justify-content: space-around;
+    text-align: left;
+    flex-flow: column wrap;
+    margin-left: 25px;
+}
+
+.row3 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.today {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.today .weatherimg {
+    margin: 20px;
+    border: 5px solid rgb(163, 82, 102);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+.today div img {
+    height: 100px;
+}
+
+@media screen and (max-width: 1400px) {
+
+    .main {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+
+    .main {
+        width: 80%;
+    }
+
+    
+}
+
+@media screen and (max-width: 750px) {
+
+    .container-fluid {
+        width: 100%;
+        font-size: 0.5em;
+        flex-direction: column;
+    }
+
+    .main {
+        width: 100%;
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .sky {
+        flex-direction: column-reverse;
+    }
+
+    .desc-temp, .locate-sky {
+        margin: 0;
+        width: 100%;
+        align-items: center;
+    }
+
+    /*.details {
+        align-self: center;
+        text-align: center;
+        margin-left: 0;
+    }*/
+}
