@@ -40,7 +40,7 @@ body * {
 }
 
 .container-fluid {
-    background-color: rgb(255, 186, 202);
+    background-color: rgb(255, 194, 208);
     /*background: repeating-linear-gradient(
         135deg, rgb(255, 186, 202) 0px, rgb(255, 186, 202) 50px, rgb(255, 167, 187) 50px, rgb(255, 167, 187) 100px);
     background: repeating-linear-gradient(
@@ -53,28 +53,32 @@ body * {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border: 50px solid rgb(255, 154, 177);
+    border: 5px solid rgb(255, 154, 177);
 }
 
 .main {
+    display: flex;
     flex-direction: column;
-    border: 5px solid rgb(163, 82, 102);
+    border: 2px solid rgb(163, 82, 102);
     background-color: rgb(255, 213, 220);
-    box-shadow: 10px 10px 5px rgb(111, 93, 96, 0.67);
+    box-shadow: 10px 10px 5px rgba(111, 93, 96, 0.434);
     border-radius: 20px;
-    width: 40%;
+    max-width: fit-content;
+    padding: 20px;
 
 }
 
 .weatherimg {
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 .desc-temp, .locate-sky {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    margin: 20px;
 }
 
 .locate-sky {
@@ -84,11 +88,11 @@ body * {
 
 .locate {
     margin: 0;
+    text-align: center;
 }
 
 .sky img {
-    height: 220px;
-    filter: drop-shadow(10px 10px 5px rgb(111, 93, 96));
+    height: 200px;
 }
 
 .desc-temp {
@@ -120,16 +124,16 @@ body * {
 
 .today .weatherimg {
     margin: 20px;
-    border: 5px solid rgb(163, 82, 102);
+    border: 2px solid rgb(163, 82, 102);
     background-color: rgb(255, 213, 220);
     border-radius: 20px;
-    width: 220px;
-    box-shadow: 10px 10px 5px rgba(111, 93, 96, 0.67);
+    width: 250px;
+    box-shadow: 10px 10px 5px rgba(111, 93, 96, 0.426);
 }
 
 .today div img {
     height: 100px;
-    filter: drop-shadow(5px 5px 5px rgb(111, 93, 96));
+    margin-bottom: 10px;
 }
 
 @media screen and (max-width: 1400px) {
@@ -150,9 +154,25 @@ body * {
 
 @media screen and (max-width: 750px) {
 
+    .today div img {
+        height: 70px;
+    }
+
+    .icon {
+        height: 60px;
+        transform: translateY(-3px);
+    }
+
+    .navbar-brand {
+        font-size: 1.5em;
+    }
+
+    .search {
+        font-size: 1.2em;
+    }
+
     .container-fluid {
         width: 100%;
-        font-size: 0.5em;
         flex-direction: column;
     }
 
@@ -160,6 +180,19 @@ body * {
         width: 100%;
         flex-direction: column;
         margin: 0;
+        box-shadow: 5px 5px 2.5px rgba(111, 93, 96, 0.44);
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    .sky img {
+        height: 100px;
     }
 
     .sky {
@@ -170,6 +203,11 @@ body * {
         margin: 0;
         width: 100%;
         align-items: center;
+    }
+
+    .today .weatherimg {
+        box-shadow: 5px 5px 2.5px rgba(111, 93, 96, 0.3);
+        width: 180px;
     }
 
     /*.details {

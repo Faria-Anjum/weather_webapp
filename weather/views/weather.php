@@ -44,7 +44,7 @@
 
             //$date = strtotime($data->list[$i]->dt_txt);
             //$hour = hournow(date('H', $date));
-            $temp = $main->temp;
+            $temp = round($main->temp);
             $curr = $weather->main;
             $desc = $weather->description;
             $time = $weather->icon[2];
@@ -103,9 +103,11 @@
             $date = strtotime($data->list[$list[$i]]->dt_txt);
             $tz = $data->city->timezone;
             $day = date('d', $date+$tz);
-            
             $month = date('M', $date+$tz);
-            $temp = $main->temp;
+
+            $low = intval(low($day));
+            $high = intval(high($day));
+            
             $curr = $weather->main;
             $desc = $weather->description;
             $time = $weather->icon[2];
@@ -125,11 +127,53 @@
                             .ucfirst($desc).
                         '</h4>
                         <h3>'
-                            .$temp.'°C
-                        </h3> 
+                            .$low.'°/'.$high.'°C'.
+                        '</h3> 
                     </div>
                 </div>';
         }
+    }
+
+    function low($day){
+
+        global $data;
+        $temps = array();
+
+        for ($i=0; $i < 40; $i++) {
+
+            $date = strtotime($data->list[$i]->dt_txt);
+            $tz = $data->city->timezone;
+            $currday = date('d', $date+$tz);
+
+            if ($currday == $day){
+
+                $main = $data->list[$i]->main;
+                $temp = $main->temp;
+                array_push($temps, $temp);
+            }
+        }
+        return min($temps);
+    }
+
+    function high($day){
+
+        global $data;
+        $temps = array();
+
+        for ($i=0; $i < 40; $i++) {
+
+            $date = strtotime($data->list[$i]->dt_txt);
+            $tz = $data->city->timezone;
+            $currday = date('d', $date+$tz);
+
+            if ($currday == $day){
+
+                $main = $data->list[$i]->main;
+                $temp = $main->temp;
+                array_push($temps, $temp);
+            }
+        }
+        return max($temps);
     }
 
     function country(){
