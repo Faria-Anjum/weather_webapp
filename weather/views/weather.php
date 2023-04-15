@@ -104,7 +104,7 @@
             $tz = $data->city->timezone;
             $day = date('d', $date+$tz);
             
-            $month = date('m', $date+$tz);
+            $month = date('M', $date+$tz);
             $temp = $main->temp;
             $curr = $weather->main;
             $desc = $weather->description;
@@ -115,7 +115,7 @@
                     <div class="locate-sky">
                         <div class="locate">
                             <h3>'
-                                .$day.
+                                .$day.' '.$month.
                             '</h3>
                         </div>
                         <div class="sky">'
