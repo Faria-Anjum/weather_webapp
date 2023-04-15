@@ -88,6 +88,7 @@ body * {
 
 .locate {
     margin: 0;
+    margin-bottom: 5px;
     text-align: center;
 }
 
@@ -128,7 +129,7 @@ body * {
     background-color: rgb(255, 213, 220);
     border-radius: 20px;
     width: 250px;
-    box-shadow: 10px 10px 5px rgba(111, 93, 96, 0.426);
+    box-shadow: 8px 8px 5px rgba(111, 93, 96, 0.426);
 }
 
 .today div img {
