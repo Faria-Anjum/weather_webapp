@@ -435,21 +435,6 @@
                 ?>
             </div>
         </div>
-        <!--<?php
-            /*for ($i=0; $i < 40; $i++) {
-
-                $weather = $data->list[$i]->weather[0];
-                $curr = $weather->main;
-                $desc = $weather->description;
-                $time = $weather->icon[2];
-
-                /*echo '<div class="row">
-                        <div class="col-2" data-color="red">'
-                            .$desc." ".$data->list[$i]->dt_txt.' '.$time.' '.weatherimg($i).
-                        '</div>
-                    </div>';
-            }*/
-        ?>-->
     </div>
 </body>
 </html>
