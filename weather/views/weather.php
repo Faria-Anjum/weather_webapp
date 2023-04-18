@@ -192,36 +192,60 @@
     }
 
     function weatherimg($curr, $desc, $time){
-
-        if ($desc == 'shower rain') {
-            return "<img src='../images/rain.jpg'>";
-        }
-        elseif ($desc == 'light rain' and $time == 'd') {
-            return "<img src='../images/light-rain.jpg'>";
-        }
-        elseif ($desc == 'light rain' and $time == 'n') {
-            return "<img src='../images/light-rain-n.png'>";
-        }
-        elseif ($desc == 'clear sky' and $time == 'd') {
-            return "<img src='../images/clear.jpg'>";
+        
+        if ($desc == 'clear sky' and $time == 'd') {
+            return "<img src='../images/clear_sky.png'>";
         }
         elseif ($desc == 'clear sky' and $time == 'n') {
-            return "<img src='../images/moon.jpg'>";
+            return "<img src='../images/clear_sky_n.png'>";
         }
-        elseif ($desc == 'broken clouds') {
-            return "<img src='../images/overcast.png'>";
+
+        elseif ($desc == 'few clouds' and $time == 'd') {
+            return "<img src='../images/few_clouds.png'>";
+        }
+        elseif ($desc == 'few clouds' and $time == 'n') {
+            return "<img src='../images/few_clouds_n.png'>";
         }
         elseif ($desc == 'scattered clouds') {
-            return "<img src='../images/overcast.png'>";
+            return "<img src='../images/scattered_clouds.png'>";
         }
-        elseif ($desc == 'few clouds') {
-            return "<img src='../images/clouds.png'>";
+        elseif ($desc == 'broken clouds' or $desc == 'overcast clouds') {
+            return "<img src='../images/broken_clouds.png'>";
         }
-        elseif ($curr == 'Clouds') {
-            return "<img src='../images/overcast.png'>";
+
+        elseif ($desc == 'freezing rain') {
+            return "<img src='../images/snow.png'>";
         }
-        elseif ($curr == 'Rain') {
-            return "<img src='../images/rain.jpg'>";
+        elseif (strpos($desc, 'shower rain') !== false) {
+            return "<img src='../images/shower_rain.png'>";
+        }
+        elseif ($curr == 'Rain' and $time == 'd') {
+            return "<img src='../images/rain.png'>";
+        }
+        elseif ($curr == 'Rain' and $time == 'n') {
+            return "<img src='../images/rain_n.png'>";
+        }
+
+        elseif ($curr == 'Drizzle') {
+            return "<img src='../images/shower_rain.png'>";
+        }
+
+        elseif ($desc == 'thunderstorm' or $desc == 'ragged thunderstorm') {
+            return "<img src='../images/thunderstorm.png'>";
+        }
+        elseif ($desc == 'heavy thunderstorm') {
+            return "<img src='../images/heavy_thunderstorm.png'>";
+        }
+        elseif ($curr == 'Thunderstorm') {
+            return "<img src='../images/thunderstorm_rain.png'>";
+        }
+        
+        elseif ($curr == 'Snow') {
+            return "<img src='../images/snow.png'>";
+        }
+        
+        else {
+            return "<img src='../images/mist.png'>";
         }
         
     }
