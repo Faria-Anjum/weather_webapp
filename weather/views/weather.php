@@ -1,31 +1,31 @@
 <?php
 
-    function _checkFileExists($url) {
-        $headers = @get_headers($url);
+    function _checkFileExists($url) { //checks if data exists for user-entered city 
+        $headers = @get_headers($url); //get header sent by server fpr http request
 
-        if($headers[0] == 'HTTP/1.1 404 Not Found') {
+        if($headers[0] == 'HTTP/1.1 404 Not Found') { //if data for city not found and url is invalid
             return false;
         } else {
             return true;
         }
     }
 
-    function today() {
+    function today() {  //function to display individual data every 3 hours for a specific date
 
         global $data;
 
-        $date = strtotime($data->list[0]->dt_txt);
-        $tz = $data->city->timezone;
-        $day = date('d', $date+$tz);
+        $date = strtotime($data->list[0]->dt_txt);  //get timestamp from date text
+        $tz = $data->city->timezone;    //get timezone from city
+        $day = date('d', $date+$tz);    //find exact date for city based on city
         $count = 0;
 
-        for ($i=0; $i < 8; $i++) {
+        for ($i=0; $i < 8; $i++) { //look through first 8 dates to find if all are from same day as in today
             if (date('d', (strtotime($data->list[$i]->dt_txt))+($data->city->timezone))==$day) {
-                $count+=1;
+                $count+=1;      //if all are, we add to count
             }
         }
 
-        for ($i=0; $i < $count; $i++) {
+        for ($i=0; $i < $count; $i++) { //output all information for current date only
 
             $main = $data->list[$i]->main;
             $weather = $data->list[$i]->weather[0];
@@ -34,16 +34,6 @@
             $tz = $data->city->timezone;
             $hour = hournow(date('H', $date+$tz));
 
-            // $date = ($data->list[$i]->dt);
-            // $hour = hournow(date('H', $date));
-
-            // $date = ($data->list[$i]->dt);
-            // $dt = new DateTime('@' . $date);
-            // $dt->setTimezone(new DateTimeZone($data->city->timezone));
-            // $hour = hournow($dt->format('H'));
-
-            //$date = strtotime($data->list[$i]->dt_txt);
-            //$hour = hournow(date('H', $date));
             $temp = round($main->temp);
             $curr = $weather->main;
             $desc = $weather->description;
@@ -61,7 +51,7 @@
                             .$weatherimg.
                         '</div>
                         <h4>'
-                            .ucfirst($desc).
+                            .ucfirst($desc). //to capitalize description of weather
                         '</h4>
                         <h3>'
                             .$temp.'°C
@@ -71,31 +61,26 @@
         }
     }
 
-    function daily() {
+    function daily() {  //function to display average data for each of five days
 
         global $data;
 
         $date = strtotime($data->list[0]->dt_txt);
         $tz = $data->city->timezone;
-        $day = date('d', $date+$tz);
+        $day = date('d', $date+$tz);    //setting day to today
         $list = array(0);
 
-        for ($i=0; $i < 40; $i++) {
+        for ($i=0; $i < 40; $i++) { //look through all data to find if data not from current day
 
-            if (date('d', (strtotime($data->list[$i]->dt_txt))+($data->city->timezone))!=$day) {
-                $day = date('d', (strtotime($data->list[$i]->dt_txt))+($data->city->timezone));
+            if (date('d', (strtotime($data->list[$i]->dt_txt))+($data->city->timezone))!=$day) {    //if data not from current day
+                $day = date('d', (strtotime($data->list[$i]->dt_txt))+($data->city->timezone));     //appending index of day to list
                 array_push($list, $i);
             }
-            //echo date('d', (strtotime($data->list[$i]->dt_txt))+($data->city->timezone));
-            // if (date('d', (strtotime($data->list[$i]->dt_txt))+($data->city->timezone))==($day+$x)%31) {
-            //     array_push($list, $i);
-            //     $x+=1;
-            // }
         }
 
         $len = count($list);
 
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 5; $i++) {  //printing data of days according to index to make sure data of same day is not repeated
 
             $main = $data->list[$list[$i]]->main;
             $weather = $data->list[$list[$i]]->weather[0];
@@ -105,8 +90,8 @@
             $day = date('d', $date+$tz);
             $month = date('M', $date+$tz);
 
-            $low = intval(low($day));
-            $high = intval(high($day));
+            $low = intval(highlow($day, 'l'));
+            $high = intval(highlow($day, 'h'));
             
             $curr = $weather->main;
             $desc = $weather->description;
@@ -134,64 +119,55 @@
         }
     }
 
-    function low($day){
+    function highlow($day, $hl){ //finding highest and lowest temperature
 
         global $data;
         $temps = array();
 
-        for ($i=0; $i < 40; $i++) {
+        for ($i=0; $i < 40; $i++) { 
 
             $date = strtotime($data->list[$i]->dt_txt);
             $tz = $data->city->timezone;
-            $currday = date('d', $date+$tz);
+            $currday = date('d', $date+$tz); //finding date of each data
 
-            if ($currday == $day){
+            if ($currday == $day){  //appending temperatures in list if date matches requested date
 
                 $main = $data->list[$i]->main;
-                $temp = $main->temp;
+
+                if ($hl == 'l') {
+                    $temp = floor($main->temp);
+                }
+                if ($hl == 'h') {
+                    $temp = ceil($main->temp);
+                }
                 array_push($temps, $temp);
             }
         }
-        return min($temps);
-    }
 
-    function high($day){
-
-        global $data;
-        $temps = array();
-
-        for ($i=0; $i < 40; $i++) {
-
-            $date = strtotime($data->list[$i]->dt_txt);
-            $tz = $data->city->timezone;
-            $currday = date('d', $date+$tz);
-
-            if ($currday == $day){
-
-                $main = $data->list[$i]->main;
-                $temp = $main->temp;
-                array_push($temps, $temp);
-            }
+        if ($hl == 'l') {
+            return min($temps);
         }
-        return max($temps);
+        if ($hl == 'h') {
+            return max($temps);
+        }
     }
 
     function country(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){   //if search button clicked
 
             global $data, $names;
 
-            $code = $data->city->country;
+            $code = $data->city->country;   //getting country code of city
 
-            if($code!='' and $names->$code!=$data->city->name){
+            if($code!='' and $names->$code!=$data->city->name){     //if city entered
                 echo $data->city->name.', '.$names->$code;
             } else {
-                echo $data->city->name;
+                echo $data->city->name;     //if country entered
             }
         }
     }
 
-    function weatherimg($curr, $desc, $time){
+    function weatherimg($curr, $desc, $time){       //specific images based on curr and desc
         
         if ($desc == 'clear sky' and $time == 'd') {
             return "<img src='../images/clear_sky.png'>";
@@ -250,12 +226,12 @@
         
     }
 
-    function desc() {
+    function desc() {   //return capitalized desc
         global $desc;
         echo ucfirst($desc);
     }
 
-    function temp($i) {
+    function temp($i) {     //return curr
 
         global $data;
 
@@ -263,13 +239,13 @@
         echo $temp;
     }
 
-    function feel($i) {
+    function feel($i) {     //return feels like temp
         global $data;
         $feel = $data->list[$i]->main->feels_like;
         echo $feel;
     }
 
-    function hournow($hour) {
+    function hournow($hour) {       //return am/pm time
         if ($hour>12) {
             return ($hour-12).' PM';
         }
@@ -335,19 +311,19 @@
             <div class="col-sm-12 top text-center">
                <?php 
 
-                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){ //if search button clicked
 
-                        $city = $_POST['city'];
+                        $city = $_POST['city'];     //get city to produce api url
 
-                        if($city == '') {
+                        if($city == '') {       //if blank value entered (to avoid error)
                             echo '<h1>'.'Enter a city in the searchbar!'.'</h1>';
-                            die();
+                            die(); //kill entire program
                         }
 
 
                         $url = "https://api.openweathermap.org/data/2.5/forecast?q=".$city."&lang=en&appid=ee44b86316a1bbdd065dd1f88122f834&units=metric";
 
-                        if(_checkFileExists($url) == false){
+                        if(_checkFileExists($url) == false){    //if nonexistent city entered
                             echo '<h1>'.'City not found. Did you misspell?'.'</h1>';
                             die();
                         }
@@ -355,11 +331,11 @@
                         $all = file_get_contents($url);
                         $data = json_decode($all);
 
-                        $names = json_decode(file_get_contents("http://country.io/names.json"));
+                        $names = json_decode(file_get_contents("http://country.io/names.json"));    //api to get country name from code
 
                     }
 
-                    else {
+                    else {      //if search button not yet clicked
                         echo '<h1>'.'Enter a city in the searchbar!'.'</h1>';
                         die();
                     }
